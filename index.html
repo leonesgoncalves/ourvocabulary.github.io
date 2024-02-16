@@ -4,17 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aprendendo Inglês Sozinho</title>
-  <link rel="icon" type="image/png" href="logo.png">
   <!-- Materialize CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
    <!-- Ícones do Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    #countdown {
+      color: white;
+      font-size: 48px;
+      text-align: center;
+      padding: 5px;
+      border-radius: 3px;
+    }
+  </style>
 </head>
 <body>
   
   <!-- Botão FAB do WhatsApp -->
   <div class="fixed-action-btn">
-    <a href="https://api.whatsapp.com/send?phone=5587991602775&text=Tenho%20uma%20d%C3%BAvida%20%20sobre%20o%20ebook%20%22Aprendendo%20Ingl%C3%AAs%20Sozinho%22." class="btn-floating btn-large blue darken-4">
+    <a href="https://api.whatsapp.com/send?phone=5587991602775&text=Tenho%20uma%20d%C3%BAvida%20%20sobre%20o%20ebook%20%22Aprendendo%20Ingl%C3%AAs%20Sozinho%22." class="btn-floating btn-large blue darken-3">
       <i class="large material-icons">chat</i>
     </a>
     <span class="btn-title"></span>
@@ -37,10 +46,10 @@
         <div class="center-align">
             <div class="row">
   <div class="col s12">
-    <h4 class="center-align">Apenas Hoje! De <span class="red-text text-lighten-1"><s>R$97,00</s></span> por <span class="blue-text text-lighten-1">R$19,90</span>.</h4>
+    <h4 class="center-align">Apenas Hoje! De <span class="red-text text-lighten-1"><s>R$50,00</s></span> por <span class="blue-text text-darken-3">R$19,90</span>.</h4>
   </div>
 </div>
-          <a href="https://pay.kiwify.com.br/jJjbUDp" class="btn-large blue darken-4">Comprar Ebook</a>
+          <a href="https://pay.kiwify.com.br/jJjbUDp" class="btn-large blue darken-3">Comprar Ebook</a>
         </div>
       </div>
     </div>
@@ -189,15 +198,21 @@
       
       <div class="row">
   <div class="col s12">
-    <h4 class="center-align">Apenas Hoje! De <span class="red-text text-lighten-1"><s>R$97,00</s></span> por <span class="blue-text text-lighten-1">R$19,90</span>.</h4>
+    <h4 class="center-align">Ultimas horas! De <span class="red-text text-lighten-1"><s>R$50,00</s></span> por <span class="blue-text text-darken-3">R$19,90</span>.</h4>
   </div>
 </div>
       
-      <p class="center-align">Esta oferta expira em:</p>
+    <div class="container">
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+          <h1 id="countdown" class="red lighten-1">30:00</h1>
+    </div>
+  </div>
+</div>
       
-      <div id="countdown" class="center-align red-text"></div>
+      
       <div class="center-align">
-        <a href="https://pay.kiwify.com.br/jJjbUDp" class="btn-large blue darken-4">Aproveitar Agora</a>
+        <a href="https://pay.kiwify.com.br/jJjbUDp" class="btn-large blue darken-3">Aproveitar Agora</a>
       </div>
     </div>
   </div>
@@ -229,36 +244,34 @@
     var instances = M.Collapsible.init(elems);
   });
 </script>
+<!-- Adicione o MaterializeJS e jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-
-<!-- Ativacao do cronometro -->
 <script>
-  // Define a data de expiração da oferta (em milissegundos)
-  var expirationDate = new Date().getTime() + (24 * 60 * 60 * 1000); // Por exemplo, 24 horas a partir de agora
+  // Função para iniciar o cronômetro
+  function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+      minutes = parseInt(timer / 60, 10);
+      seconds = parseInt(timer % 60, 10);
 
-  // Atualiza o cronômetro a cada segundo
-  var x = setInterval(function() {
-    // Obtém a data e hora atuais
-    var now = new Date().getTime();
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    // Calcula a diferença entre a data de expiração e a data atual
-    var distance = expirationDate - now;
+      display.text(minutes + ":" + seconds);
 
-    // Calcula o tempo restante em dias, horas, minutos e segundos
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      if (--timer < 0) {
+        timer = duration;
+      }
+    }, 1000);
+  }
 
-    // Exibe o tempo restante no elemento com o id "countdown"
-    document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-    // Se o tempo expirar, exibe uma mensagem
-    if (distance < 0) {
-      clearInterval(x);
-      document.getElementById("countdown").innerHTML = "EXPIRADO";
-    }
-  }, 1000);
+  jQuery(function ($) {
+    var thirtyMinutes = 60 * 30,
+      display = $('#countdown');
+    startTimer(thirtyMinutes, display);
+  });
 </script>
 </body>
 </html>
